@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .h1 {
+        @apply font-bold text-4xl;
+    }
+
+    .h2 {
+        @apply font-bold text-2xl;
+    }
+
+    .h3 {
+        @apply font-bold text-xl;
+    }
+
+    .h4 {
+        @apply font-semibold text-lg;
+    }
+
+    .para {
+        @apply font-medium text-[14px];
+    }
+
+    .light {
+        @apply bg-[#fff];
+    }
+
+    .dark {
+        @apply bg-[#121212];
+    }
+
+    .yellow {
+        @apply bg-[#FEDA03]
+    }
+
+    .blue {
+        @apply bg-[#008EFF]
+    }
+
+}
