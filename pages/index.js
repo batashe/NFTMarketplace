@@ -1,6 +1,6 @@
 import React from 'react'
-import NftCard from '../components/nft/NftCard';
-import Nfts from "../dummyNFTs";
+import NftCard from '../components/nft/NftGrid';
+import NFT_DATA from "../dummyNFTs";
 
 const index = ({ nfts }) => {
   return (
@@ -11,7 +11,7 @@ const index = ({ nfts }) => {
 }
 
 export async function getStaticProps() {
-  const nftsData = Nfts || [];
+  const nftsData = NFT_DATA || [];
   return {
     props: {
       nfts: nftsData
