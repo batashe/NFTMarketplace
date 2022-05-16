@@ -1,8 +1,6 @@
 import React from 'react';
-import { useRouter } from 'next/router'
 import Image from 'next/image'
 import NftGrid from '../components/nft/NftGrid';
-
 import NFT_DATA from "../helpers/dummyNFTs";
 
 /**
@@ -12,7 +10,7 @@ import NFT_DATA from "../helpers/dummyNFTs";
  **/
 
 export default function profile() {
-    const router = useRouter();
+
     return (
         <div>
             <div className='md:dark:bg-[#191919] md:mx-14 md:p-5 rounded-lg md:bg-[#F7F7F7] md:relative md:h-[250px] md:mt-2 mx-4 '>
@@ -24,7 +22,7 @@ export default function profile() {
                 <div className='bg-gray-300 dark:bg-gray-800 py-2 px-8 h4 rounded-full'>0xee4........xccg1</div>
             </div>
             <div className='mt-4'>
-            <h2 className='h1'>My <span className='text-blue-500'>NFTs</span></h2>
+                <h2 className='h1'>My <span className='text-blue-500'>NFTs</span></h2>
                 <NftGrid nfts={NFT_DATA}></NftGrid>
             </div>
         </div>
