@@ -1,34 +1,29 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# NFT Marketplace
 
-## Getting Started
+We are a developing NFT Marketplace based on Next.js, Sanity, ethereum and Node.js dedicated to connecting artists with their fans and unique token collectors!, Pay for any NFT art with Etherum.
 
-First, run the development server:
+[![Maintainer](https://img.shields.io/badge/maintainer-batashe-green)](https://github.com/batashe)
 
-```bash
-npm run dev
-# or
-yarn dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## How NFT Marketplace Functions
+* You need to create an NFT and specify all desired parameters (price, description, etc.).
+* List your digital item for sale and wait till the moderation is completed.
+* Then the auction takes place and buyers place their bids.
+* Once the auction is finished, the transfer of digital product and cryptocurrency takes place. It is performed by an NFT marketplace. 
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Tech Stacks
+To build our own custom NFT Marketplace, we are using following tech stacks -
+* **Next.js** for front-end part of the solution;
+* **Node.js + Express.js** for the back-end coding;
+* **Github CI** for CI/Cd;
+* **MongoDB** will be a perfect database for an NFT solution;
+* **Vercel** is great for hosting and services. 
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Team Members
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [Adarsh-Kushwaha](https://github.com/Adarsh-kushwaha/)
+- [Apoorv-Pandey](https://github.com/apoorvpandey0/)
+- [Chhaya-Bisen](https://github.com/Chhaya141/)
+- [Rishit-Sisodia](https://github.com/Rishit605/)
+- [Ritik-Chourasiya](https://github.com/theritikchoure/)
+ 

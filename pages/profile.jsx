@@ -3,7 +3,13 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 import NftGrid from '../components/nft/NftGrid';
 
-import NFT_DATA from "../dummyNFTs";
+import NFT_DATA from "../helpers/dummyNFTs";
+
+/**
+ * @title User Profile
+ * @author apoorv
+ * @component functional
+ **/
 
 export default function profile() {
     const router = useRouter();

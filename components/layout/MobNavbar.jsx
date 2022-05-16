@@ -1,12 +1,18 @@
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from "../../assets/logo.png";
 import { FiSearch } from "react-icons/fi";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { BsFillCircleFill } from "react-icons/bs";
 
-const MobNavbar = ({ darkMode, setDarkMode }) => {
+/**
+ * @title Navbar for mobile
+ * @author adarsh
+ * @component functional
+ **/
+
+const MobNavbar = ({ darkMode, changeDarkMode }) => {
 
     const [toggle, setToggle] = useState(false);
     const [searchBar, setSearchBar] = useState(false);
@@ -16,7 +22,7 @@ const MobNavbar = ({ darkMode, setDarkMode }) => {
             <div className='flex flex-row justify-between items-center p-3'>
                 <div><Image src={logo} alt="logo" width={40} height={40} /></div>
                 <div className='flex flex-row justify-between items-center gap-4'>
-                    <div onClick={() => { setDarkMode(!darkMode) }}>
+                    <div onClick={changeDarkMode}>
                         {darkMode ?
                             <div className='flex flex-row bg-transparent border-[1px] dark:border-gray-700 p-2 rounded-full justify-between items-center w-[65px]'>
                                 <MdDarkMode size={18} className="fill-[#a6a6a6]" />
