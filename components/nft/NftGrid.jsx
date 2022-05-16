@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 
-const NftCard = ({ nfts }) => {
+const NftGrid = ({ nfts }) => {
     return (
         <div>
             {/* create a grid of data  */}
@@ -32,4 +32,4 @@ const NftCard = ({ nfts }) => {
     )
 }
 
-export default NftCard
+export default NftGrid

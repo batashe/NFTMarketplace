@@ -1,4 +1,4 @@
-const Nfts = [{
+const NFT_DATA = [{
     id: 1,
     price: '0.25 ETH',
     isFavourite: true,
@@ -91,4 +91,4 @@ const Nfts = [{
 },
 ]
 
-export default Nfts;
+export default NFT_DATA;
