@@ -1,6 +1,12 @@
-import React from 'react'
+import React from 'react';
 import NftCard from '../components/nft/NftGrid';
-import NFT_DATA from "../dummyNFTs";
+import NFT_DATA from "../helpers/dummyNFTs";
+
+/**
+ * @title Index
+ * @author -
+ * @component functional
+ **/
 
 const index = ({ nfts }) => {
   return (
@@ -10,6 +16,7 @@ const index = ({ nfts }) => {
   )
 }
 
+// Get Static Props
 export async function getStaticProps() {
   const nftsData = NFT_DATA || [];
   return {
@@ -20,4 +27,4 @@ export async function getStaticProps() {
 }
 
 
-export default index
+export default index;

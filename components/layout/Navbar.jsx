@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { BsFillCircleFill } from "react-icons/bs";
 import Link from "next/link";
 import logo from "../../assets/logo.png";
 import Image from 'next/image';
 
-const Navbar = ({ darkMode, setDarkMode }) => {
+/**
+ * @title Navbar for desktop
+ * @author adarsh
+ * @component functional
+ **/
+
+const Navbar = ({ darkMode, changeDarkMode }) => {
 
     return (
         <nav className='sticky top-0 z-30 w-full backdrop-filter backdrop-blur-xl bg-opacity-10 md:px-[54px] px-2'>
@@ -30,7 +36,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 <div className='md:flex md:flex-row md:justify-end md:items-center md:w-[10%] hidden'>
 
                     {/* Dark mode configuration*/}
-                    <div onClick={() => { setDarkMode(!darkMode) }}>
+                    <div onClick={changeDarkMode}>
                         {darkMode ?
                             <div className='flex flex-row bg-[#ffffff] p-2 rounded-full justify-between items-center w-[70px] cursor-pointer '>
                                 <MdDarkMode size={20} className="fill-[#000000]" />
