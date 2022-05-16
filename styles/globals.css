@@ -17,7 +17,7 @@
     }
 
     .h4 {
-        @apply font-semibold text-lg;
+        @apply font-bold text-[15px];
     }
 
     .para {
