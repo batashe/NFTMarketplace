@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Footer from './Footer';
 import MobNavbar from './MobNavbar';
 import Navbar from './Navbar';
 
@@ -22,11 +23,12 @@ const Layout = ({ children }) => {
 
     return (
         <div className={darkMode ? "dark" : " "}>
-            <div className='dark:dark bg-light dark:text-white text-gray-900 h-max-screen font-poppins'>
+            <div className='dark:dark bg-light dark:text-white text-gray-900 h-max-screen font-poppins box-border'>
                 {mobNav ? <MobNavbar darkMode={darkMode} setDarkMode={setDarkMode} /> : <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />}
                 <main className="md:max-w-[95%] md:m-auto md:px-2 px-2 font-poppins">
                     {children}
                 </main>
+                <Footer/>
             </div>
         </div>
     )

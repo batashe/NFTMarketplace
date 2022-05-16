@@ -2,13 +2,15 @@ import React from 'react';
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { BsFillCircleFill } from "react-icons/bs";
 import Link from "next/link";
+import logo from "../../assets/logo.png";
+import Image from 'next/image';
 
 const Navbar = ({ darkMode, setDarkMode }) => {
 
     return (
         <nav className='sticky top-0 z-30 w-full backdrop-filter backdrop-blur-xl bg-opacity-10 md:px-[54px] px-2'>
             <div className='md:flex md:flex-row md:justify-start md:items-center max-w-[100%] md:gap-4 py-5 md:h4 text-gray-500 flex flex-row justify-between items-center'>
-                <div className='md:w-[10%] md:h3 text-gray-800 dark:text-white h4'>Buy My NFT</div>
+                <div className='md:w-[10%] md:h3 text-gray-800 dark:text-white h4'><Image src={logo} alt="logo" width={40} height={40} /></div>
                 {/*Serach Bar*/}
                 <div className='md:w-[40%]'>
                     <input type="search" placeholder='🔎 Type Here To Search Query' className='form-control block w-full px-6 py-2 text-base para outline-none bg-gray-100 border rounded-full transition ease-in-out m-0 focus:text-gray-700  focus:border-gray-500 focus:outline-none hover:shadow-sm focus:shadow-sm dark:bg-[#232323] dark:border-none' /></div>
@@ -19,7 +21,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                     <p><Link href="/profile"><a>Profile</a></Link></p>
                 </div>
                 <div className='md:w-[10%] md:items-center md:flex md:justify-center hidden'>
-                    <button className='px-6 py-2 rounded-3xl bg-gradient-to-r from-violet-500 to-fuchsia-500 h4 text-white'>Create</button>
+                    <button className='px-6 py-2 rounded-3xl bg-gradient-to-r from-violet-500 to-fuchsia-500 h4 text-white'><Link href="/create"><a>Create</a></Link></button>
                 </div>
                 {/*Connect Wallet*/}
                 <div className='md:w-[10%] md:items-center md:flex md:justify-center hidden'>
