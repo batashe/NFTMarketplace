@@ -11,20 +11,20 @@ import NFT_DATA from "../helpers/dummyNFTs";
 const index = ({ nfts }) => {
   return (
     <div>
-      <NftCard nfts={nfts} />
+      <NftCard nfts={NFT_DATA} />
     </div>
   )
 }
 
 // Get Static Props
-export async function getStaticProps() {
-  const nftsData = NFT_DATA || [];
-  return {
-    props: {
-      nfts: nftsData
-    }
-  }
-}
+// export async function getStaticProps() {
+//   const nftsData = NFT_DATA || [];
+//   return {
+//     props: {
+//       nfts: nftsData
+//     }
+//   }
+// }
 
 
 export default index;
