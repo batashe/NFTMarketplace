@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import {FaEthereum} from "react-icons/fa";
 
 /**
  * @title NFT Grid
@@ -19,7 +20,7 @@ const NftGrid = ({ nfts }) => {
                         <h3 className='h4 mt-2'>{nft.name}</h3>
                         <div className='flex flex-row justify-between items-center mb-1'>
                             <p className='h4'>{nft.price}</p>
-                            <Image src='https://rarible.com/9b703a21b9f93a1f0065.svg' width={24} height={24} alt="ether"/>
+                            <FaEthereum fill='#617DE9'/>
                         </div>
                         <div className='flex flex-row justify-between items-center'>
                             <p className='text-blue-500 hover:text-blue-800 text-sm font-semibold py-2 rounded-full'>Buy now</p>
