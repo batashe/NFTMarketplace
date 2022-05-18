@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Image from 'next/image'
 import NftGrid from '../components/nft/NftGrid';
 import NFT_DATA from "../helpers/dummyNFTs";
+import { TransactionContext } from '../context/TransactionContext';
+import { ShortenAdd } from '../helpers/ShortAdd';
 
 /**
  * @title User Profile
@@ -11,6 +13,16 @@ import NFT_DATA from "../helpers/dummyNFTs";
 
 export default function profile() {
 
+    const { currentAccount } = useContext(TransactionContext);
+
+    if (!currentAccount) {
+        return (
+            <div className='flex justify-center items-center h2 h-screen'>
+                Please Sign in through metamask to create your account
+            </div>
+        )
+    }
+
     return (
         <div>
             <div className='md:dark:bg-[#191919] md:mx-14 md:p-5 rounded-lg md:bg-[#F7F7F7] md:relative md:h-[250px] md:mt-2 mx-4 '>
@@ -19,7 +31,7 @@ export default function profile() {
                 </div>
             </div>
             <div className='flex justify-center items-center md:mt-[150px] mt-3'>
-                <div className='bg-gray-300 dark:bg-gray-800 py-2 px-8 h4 rounded-full'>0xee4........xccg1</div>
+                <div className='bg-gray-300 dark:bg-gray-800 py-2 px-8 h4 rounded-full'>{ShortenAdd(currentAccount)}</div>
             </div>
             <div className='mt-4'>
                 <h2 className='h1'>My <span className='text-blue-500'>NFTs</span></h2>
