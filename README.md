@@ -1,0 +1,2 @@
+# NFTMarketplace
+A non-fungible token (NFT) is a financial security consisting of digital data stored in a blockchain, a form of distributed ledger. The ownership of an NFT is recorded in the blockchain, and can be transferred by the owner, allowing NFTs to be sold and traded. NFTs typically contain references to digital files such as photos, videos, and audio.  And we are here to sell NFT, this is our college minor project also
