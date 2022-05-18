@@ -13,6 +13,8 @@ Do all this in root folder only (Do not do aything inside fronted folder)
 
 ``` npx hardhat node ```
 
+* Open a new terminal and type
+
 ```npx hardhat run scripts/deploy.js --network localhost```
 
 New folders are created
