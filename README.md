@@ -13,6 +13,8 @@ Do all this in root folder only (Do not do aything inside fronted folder)
 
 ``` npx hardhat node ```
 
+* Open a new terminal and type
+
 ```npx hardhat run scripts/deploy.js --network localhost```
 
 New folders are created
@@ -24,23 +26,25 @@ New folders are created
 
 ``` npx hardhat test```
 
+## OUTPUT
+
 ***
 
-NFTMarketplace
-    Deployment
-      ✔ Should track name and symbol of the nft collection (63ms)
-      ✔ Should track feeAccount and feePercent of the marketplace
-    Minting NFTs
-      ✔ Should track each minted NFT (170ms)
-    Making marketplace items
-      ✔ Should track newly created item, transfer NFT from seller to marketplace and emit Offered event (120ms)
-      ✔ Should fail if price is set to zero (52ms)
-    Purchasing marketplace items
-      ✔ Should update item as sold, pay seller, transfer NFT to buyer, charge fees and emit a Bought event (124ms)
-      ✔ Should fail for invalid item ids, sold items and when not enough ether is paid (149ms)
+- NFTMarketplace
+    - Deployment
+      * ✔ Should track name and symbol of the nft collection (63ms)
+      * ✔ Should track feeAccount and feePercent of the marketplace
+    - Minting NFTs
+      * ✔ Should track each minted NFT (170ms)
+    - Making marketplace items
+      * ✔ Should track newly created item, transfer NFT from seller to marketplace and emit Offered event (120ms)
+      * ✔ Should fail if price is set to zero (52ms)
+    - Purchasing marketplace items
+      * ✔ Should update item as sold, pay seller, transfer NFT to buyer, charge fees and emit a Bought event (124ms)
+      * ✔ Should fail for invalid item ids, sold items and when not enough ether is paid (149ms)
 
 
-  7 passing (4s)
+  _7 passing (4s)
 
 ***
 
