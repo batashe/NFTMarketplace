@@ -5,7 +5,7 @@ import Link from "next/link";
 import logo from "../../assets/logo.png";
 import Image from 'next/image';
 import { TransactionContext } from '../../context/TransactionContext';
-import { ShortenAdd } from '../../helpers/shortAdd';
+import { ShortenAdd } from '../../helpers/ShortAdd';
 
 /**
  * @title Navbar for desktop
