@@ -1,11 +1,17 @@
 import '../styles/globals.css';
 import Layout from '../components/layout/Layout';
+import dynamic from 'next/dynamic';
+import { TransactionProvider } from '../context/TransactionContext';
+
+
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <TransactionProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </TransactionProvider>
   )
 }
 
-export default MyApp
+export default MyApp;

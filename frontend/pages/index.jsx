@@ -1,12 +1,15 @@
 import React from 'react';
 import NftCard from '../components/nft/NftGrid';
 import NFT_DATA from "../helpers/dummyNFTs";
+import Web3Modal from "web3modal";
+import { ethers } from "ethers";
 
 /**
  * @title Index
  * @author -
  * @component functional
  **/
+
 
 const index = ({ nfts }) => {
   return (
