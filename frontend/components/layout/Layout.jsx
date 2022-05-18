@@ -45,7 +45,7 @@ const Layout = ({ children }) => {
                 <main className="md:max-w-[95%] md:m-auto md:px-2 px-2 font-poppins">
                     {children}
                 </main>
-                <Footer/>
+                <Footer />
             </div>
         </div>
     )
