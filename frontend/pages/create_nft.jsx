@@ -6,12 +6,13 @@ import { TransactionContext } from '../context/TransactionContext';
 const client = create('https://ipfs.infura.io:5001/api/v0');
 
 
-const create = () => {
+const create_nft = () => {
 
     const [image, setImage] = useState('');
     const [price, setPrice] = useState(null);
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
+
     const { marketplace, NFT } = useContext(TransactionContext);
 
     //upload to ipfs
@@ -93,4 +94,4 @@ const create = () => {
     )
 }
 
-export default create;
+export default create_nft;
