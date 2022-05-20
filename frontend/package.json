@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "ethers": "^5.6.6",
-    "next": "11.1.4",
+    "ipfs-http-client": "^56.0.3",
+    "next": "12",
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-icons": "^4.3.1",

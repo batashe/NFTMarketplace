@@ -35,7 +35,7 @@ export default function profile() {
             </div>
             <div className='mt-4'>
                 <h2 className='h1'>My <span className='text-blue-500'>NFTs</span></h2>
-                <NftGrid nfts={NFT_DATA}></NftGrid>
+                
             </div>
         </div>
     )

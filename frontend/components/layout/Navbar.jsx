@@ -35,7 +35,7 @@ const Navbar = ({ darkMode, changeDarkMode }) => {
 
                     {/*Create Button*/}
                     <div className=' md:items-center md:flex md:justify-center hidden'>
-                        <button className='px-6 py-2 rounded-3xl bg-gradient-to-r from-violet-500 to-fuchsia-500 h4 text-white'><Link href="/create"><a>Create</a></Link></button>
+                        <button className='px-6 py-2 rounded-3xl bg-gradient-to-r from-violet-500 to-fuchsia-500 h4 text-white'><Link href="/createNFT"><a>Create</a></Link></button>
                     </div>
 
                     {/*Connect Wallet*/}

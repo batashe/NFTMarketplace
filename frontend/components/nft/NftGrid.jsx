@@ -1,30 +1,118 @@
-import React from 'react';
-import Image from 'next/image';
-import {FaEthereum} from "react-icons/fa";
+import React, { useState, useContext, useEffect } from 'react';
+// import Image from 'next/image';
+import { FaEthereum } from "react-icons/fa";
+import { ethers } from "ethers";
+// import { TransactionContext } from '../../context/TransactionContext';
+// import MarketplaceAbi from "../../utils/Marketplace.json";
+// import NFTAbi from "../../utils/NFT.json";
+// import MarketplaceAddress from "../../utils/MarketplaceAdd.json";
+// import NFTAddress from "../../utils/NFTAdd.json";
+// import Web3Modal from "web3modal";
 
 /**
  * @title NFT Grid
- * @author apoorv
+ * @author Adarsh, Apoorv
  * @component functional
  **/
 
-const NftGrid = ({ nfts }) => {
+const NftGrid = ({ items, buyMarketItem }) => {
+    let isFav = true;
+
+
+    // const [marketplace, setMarketplace] = useState({});
+    // const [NFT, setNFT] = useState({});
+
+
+    // const connectWallet = async () => {
+
+    //     try {
+    //         if (true) {
+    //             const web3Modal = new Web3Modal();
+    //             const web3ModalProvider = await web3Modal.connect();
+    //             // const accounts = await web3ModalProvider.request({ method: 'eth_requestAccounts' });
+    //             // const account = await accounts[0];
+    //             const provider = new ethers.providers.Web3Provider(web3ModalProvider);
+    //             const signer = provider.getSigner();
+    //             loadContracts(signer);
+    //         } 
+
+    //     } catch (err) {
+    //         console.log(err)
+    //     }
+
+    // }
+
+
+    // const loadContracts = async (signer) => {
+    //     const market_place = new ethers.Contract(MarketplaceAddress.address, MarketplaceAbi.abi, signer);
+    //     setMarketplace(market_place);
+    //     const nft = new ethers.Contract(NFTAddress.address, NFTAbi.abi, signer);
+    //     setNFT(nft);
+    // }
+
+
+    // const loadMarketplaceItems = async () => {
+    //     // Load all unsold items
+    //     const itemCount = await marketplace.itemCount();
+    //     let items = []
+    //     for (let i = 0; i <= itemCount; i++) {
+    //         const item = await marketplace.items(i)
+    //         if (!item.sold) {
+    //             // get uri url from nft contract
+    //             const uri = await NFT.tokenURI(item.tokenId)
+    //             // use uri to fetch the nft metadata stored on ipfs 
+    //             const response = await fetch(uri)
+    //             const metadata = await response.json()
+    //             // get total price of item (item price + fee)
+    //             const totalPrice = await marketplace.getTotalPrice(item.itemId)
+    //             // Add item to items array
+    //             items.push({
+    //                 totalPrice,
+    //                 itemId: item.itemId,
+    //                 seller: item.seller,
+    //                 name: metadata.name,
+    //                 description: metadata.description,
+    //                 image: metadata.image
+    //             })
+    //         }
+    //     }
+
+    //     setItems(items)
+    // }
+
+    // console.log(items);
+
+    // const buyMarketItem = async (item) => {
+    //     await (await marketplace.purchaseItem(item.itemId, { value: item.totalPrice })).wait()
+    //     loadMarketplaceItems();
+    // }
+
+    // useEffect(() => {
+    //     connectWallet();
+    //     loadMarketplaceItems();
+    // }, [])
+
+
+    if (items.length <= 0) {
+        return <p>NO NFTS FOUND</p>
+    }
+
     return (
         <div>
             {/* create a grid of data  */}
             <div className="flex flex-wrap my-6 w-full justify-center">
                 {/* TODO:There should be max 4 items in one row, currently there is no such limit */}
-                {nfts.map((nft) => (
-                    <div className="border border-[rgba(4, 4, 5, 0.1)] dark:border-[#474747] rounded-lg p-4 my-3 mx-3 hover:shadow-md hover:shadow-blue-100 transition ease-in-out delay-100 w-[260px] h-[350px] cursor-pointer dark:shadow-gray-800" key={nft.id} >
-                        <Image className='rounded-md' src={nft.image} alt={nft.name} width={230} height={230} />
+                {items.map((nft, idx) => (
+                    <div className="border border-[rgba(4, 4, 5, 0.1)] dark:border-[#474747] rounded-lg p-4 my-3 mx-3 hover:shadow-md hover:shadow-blue-100 transition ease-in-out delay-100 w-[260px] h-[350px] cursor-pointer dark:shadow-gray-800" key={idx} >
+                        <img className='rounded-md w-[230px] h-[230px]' src={nft.image} alt={nft.name} />
                         <h3 className='h4 mt-2'>{nft.name}</h3>
                         <div className='flex flex-row justify-between items-center mb-1'>
-                            <p className='h4'>{nft.price}</p>
-                            <FaEthereum fill='#617DE9'/>
+                            <p className='h4'>{ethers.utils.formatEther(nft.totalPrice)}</p>
+                            <FaEthereum fill='#617DE9' />
                         </div>
                         <div className='flex flex-row justify-between items-center'>
-                            <p className='text-blue-500 hover:text-blue-800 text-sm font-semibold py-2 rounded-full'>Buy now</p>
-                            {nft.isFavourite ?
+                            <p className='text-blue-500 hover:text-blue-800 text-sm font-semibold py-2 rounded-full cursor-pointer' onClick={() => buyMarketItem(nft)}>Buy now</p>
+                            {isFav ?
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="red">
                                     <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
                                 </svg> :
