@@ -3,7 +3,7 @@ import { ethers } from 'ethers';
 import { create } from 'ipfs-http-client';
 import Web3Modal from "web3modal";
 import MarketplaceAbi from "../utils/Marketplace.json";
-import NFTAbi from "../utils/nft.json";
+import NFTAbi from "../utils/NFT.json";
 import MarketplaceAddress from "../utils/MarketplaceAdd.json";
 import NFTAddress from "../utils/NFTAdd.json";
 
