@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { ethers } from 'ethers';
 import { create } from 'ipfs-http-client';
 import Web3Modal from "web3modal";
@@ -10,7 +10,7 @@ import NFTAddress from "../utils/NFTAdd.json";
 const client = create('https://ipfs.infura.io:5001/api/v0');
 
 
-const create_nft = () => {
+const CreateNFT = () => {
 
     const [image, setImage] = useState('');
     const [price, setPrice] = useState(null);
@@ -112,4 +112,4 @@ const create_nft = () => {
     )
 }
 
-export default create_nft;
+export default CreateNFT;

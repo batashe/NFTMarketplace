@@ -15,7 +15,7 @@ import NFTAddress from "../utils/NFTAdd.json";
  **/
 
 
-const index = () => {
+const Explore = () => {
 
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -107,4 +107,4 @@ const index = () => {
 
 
 
-export default index;
+export default Explore;

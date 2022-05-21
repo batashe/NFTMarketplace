@@ -16,7 +16,7 @@ import MyNftGrid from '../components/nft/MyNftGrid';
  * @component functional
  **/
 
-export default function profile() {
+export default function Profile() {
 
     const [loading, setLoading] = useState(true);
     const [listedItems, setListedItems] = useState([]);

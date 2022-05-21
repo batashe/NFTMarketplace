@@ -1,9 +1,9 @@
 import React from 'react'
 
-const index = () => {
+const Home = () => {
   return (
     <div className='h1 flex justify-center items-center h-screen'>Home Page Under Construction</div>
   )
 }
 
-export default index
+export default Home
