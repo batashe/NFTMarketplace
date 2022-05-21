@@ -75,12 +75,12 @@ export const TransactionProvider = ({ children }) => {
 
     //loading NFT and NFTMarkeplace contract
 
-    const loadContracts = async (signer) => {
-        const market_place = new ethers.Contract(MarketplaceAddress.address, MarketplaceAbi.abi, signer);
-        setMarketplace(market_place);
-        const nft = new ethers.Contract(NFTAddress.address, NFTAbi.abi, signer);
-        setNFT(nft);
-    }
+    // const loadContracts = async (signer) => {
+    //     const market_place = new ethers.Contract(MarketplaceAddress.address, MarketplaceAbi.abi, signer);
+    //     setMarketplace(market_place);
+    //     const nft = new ethers.Contract(NFTAddress.address, NFTAbi.abi, signer);
+    //     setNFT(nft);
+    // }
 
 
     return (

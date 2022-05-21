@@ -1,7 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState} from 'react';
 import { ethers } from 'ethers';
 import { create } from 'ipfs-http-client';
-import { TransactionContext } from '../context/TransactionContext';
+import Web3Modal from "web3modal";
+import MarketplaceAbi from "../utils/Marketplace.json";
+import NFTAbi from "../utils/nft.json";
+import MarketplaceAddress from "../utils/MarketplaceAdd.json";
+import NFTAddress from "../utils/NFTAdd.json";
 
 const client = create('https://ipfs.infura.io:5001/api/v0');
 
@@ -12,8 +16,6 @@ const create_nft = () => {
     const [price, setPrice] = useState(null);
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-
-    const { marketplace, NFT } = useContext(TransactionContext);
 
     //upload to ipfs
     const uploadToIPFS = async (event) => {
@@ -30,7 +32,7 @@ const create_nft = () => {
         }
     }
 
-    //creating NFT
+    //creating nft
     const createNFT = async (e) => {
         e.preventDefault();
         if (!image || !price || !name || !description) return
@@ -43,21 +45,37 @@ const create_nft = () => {
     }
 
     const mintThenList = async (result) => {
+
+        const web3Modal = new Web3Modal({
+            network: 'rinkeby',
+            cacheProvider: true,
+        })
+
+        const web3ModalProvider = await web3Modal.connect();
+        //const accounts = await web3ModalProvider.request({ method: 'eth_requestAccounts' });
+        // const account = await accounts[0];
+        const provider = new ethers.providers.Web3Provider(web3ModalProvider);
+        const signer = provider.getSigner();
+
+        const market_place = new ethers.Contract(MarketplaceAddress.address, MarketplaceAbi.abi, signer);
+
+        const nft = new ethers.Contract(NFTAddress.address, NFTAbi.abi, signer);
+
         const uri = `https://ipfs.infura.io/ipfs/${result.path}`
         // mint nft 
-        await (await NFT.mint(uri)).wait()
+        await (await nft.mint(uri)).wait()
         // get tokenId of new nft 
-        const id = await NFT.tokenCount()
-        // approve marketplace to spend nft
-        await (await NFT.setApprovalForAll(marketplace.address, true)).wait()
-        // add nft to marketplace
+        const id = await nft.tokenCount()
+        // approve market_place to spend nft
+        await (await nft.setApprovalForAll(market_place.address, true)).wait()
+        // add nft to market_place
         const listingPrice = ethers.utils.parseEther(price.toString())
-        await (await marketplace.makeItem(NFT.address, id, listingPrice)).wait()
+        await (await market_place.makeItem(nft.address, id, listingPrice)).wait()
     }
 
     return (
         <div className='flex flex-col justify-center h-screen'>
-            <h2>Create NFT</h2>
+            <h2>Create nft</h2>
             <div>
                 <div className="w-1/2 flex flex-col pb-12">
                     <input
@@ -86,7 +104,7 @@ const create_nft = () => {
                     </form>
 
                     <button className="font-bold mt-4 bg-pink-500 text-white rounded p-4 shadow-lg" onClick={createNFT}>
-                        Create NFT
+                        Create nft
                     </button>
                 </div>
             </div>

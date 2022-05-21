@@ -1,19 +1,118 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image'
-import NftGrid from '../components/nft/NftGrid';
-import NFT_DATA from "../helpers/dummyNFTs";
-import { TransactionContext } from '../context/TransactionContext';
+// import { TransactionContext } from '../context/TransactionContext';
 import { ShortenAdd } from '../helpers/ShortAdd';
+import { ethers } from "ethers";
+import Web3Modal from "web3modal";
+import MarketplaceAbi from "../utils/Marketplace.json";
+import NFTAbi from "../utils/NFT.json";
+import MarketplaceAddress from "../utils/MarketplaceAdd.json";
+import NFTAddress from "../utils/NFTAdd.json";
+import MyNftGrid from '../components/nft/MyNftGrid';
 
 /**
  * @title User Profile
- * @author apoorv
+ * @author Adarsh & Apoorv
  * @component functional
  **/
 
 export default function profile() {
 
-    const { currentAccount } = useContext(TransactionContext);
+    const [loading, setLoading] = useState(true);
+    const [listedItems, setListedItems] = useState([]);
+    const [soldItems, setSoldItems] = useState([]);
+    const [currentAccount, setCurrentAccount] = useState("");
+    const [purchaseItems, setPurchaseItems] = useState([])
+
+    async function loadListedItems() {
+
+        const web3Modal = new Web3Modal({
+            network: 'rinkeby',
+            cacheProvider: true,
+        })
+
+        const web3ModalProvider = await web3Modal.connect();
+        const accounts = await web3ModalProvider.request({ method: 'eth_requestAccounts' });
+        const account = await accounts[0];
+        setCurrentAccount(account);
+        const provider = new ethers.providers.Web3Provider(web3ModalProvider);
+        const signer = provider.getSigner();
+
+        const market_place = new ethers.Contract(MarketplaceAddress.address, MarketplaceAbi.abi, signer);
+
+        const nft = new ethers.Contract(NFTAddress.address, NFTAbi.abi, signer);
+
+        // Load all sold items that the user listed
+        const itemCount = await market_place.itemCount()
+
+        let listedItems = []
+        let soldItems = []
+
+        for (let indx = 1; indx <= itemCount; indx++) {
+            const i = await market_place.items(indx)
+            if (i.seller.toLowerCase() === account) {
+                // get uri url from nft contract
+                const uri = await nft.tokenURI(i.tokenId)
+                // use uri to fetch the nft metadata stored on ipfs 
+                const response = await fetch(uri)
+                const metadata = await response.json()
+                // get total price of item (item price + fee)
+                const totalPrice = await market_place.getTotalPrice(i.itemId)
+                // define listed item object
+                let item = {
+                    totalPrice,
+                    price: i.price,
+                    itemId: i.itemId,
+                    name: metadata.name,
+                    description: metadata.description,
+                    image: metadata.image
+                }
+                listedItems.push(item)
+                // Add listed item to sold items array if sold
+                if (i.sold) soldItems.push(item)
+            }
+        }
+
+        // Fetch purchased items from marketplace by quering Offered events with the buyer set as the user
+        const filter = market_place.filters.Bought(null, null, null, null, null, account)
+        const results = await market_place.queryFilter(filter)
+        //Fetch metadata of each nft and add that to listedItem object.
+        const purchases = await Promise.all(results.map(async i => {
+            // fetch arguments from each result
+            i = i.args
+            // get uri url from nft contract
+            const uri = await nft.tokenURI(i.tokenId)
+            // use uri to fetch the nft metadata stored on ipfs 
+            const response = await fetch(uri)
+            const metadata = await response.json()
+            // get total price of item (item price + fee)
+            const totalPrice = await market_place.getTotalPrice(i.itemId)
+            // define listed item object
+            let purchasedItem = {
+                totalPrice,
+                price: i.price,
+                itemId: i.itemId,
+                name: metadata.name,
+                description: metadata.description,
+                image: metadata.image
+            }
+            return purchasedItem;
+        }))
+
+        setLoading(false)
+        setListedItems(listedItems)
+        setSoldItems(soldItems)
+        setPurchaseItems(purchases);
+
+    }
+
+
+
+
+    useEffect(() => {
+        loadListedItems()
+    }, [])
+
 
     if (!currentAccount) {
         return (
@@ -34,8 +133,16 @@ export default function profile() {
                 <div className='bg-gray-300 dark:bg-gray-800 py-2 px-8 h4 rounded-full'>{ShortenAdd(currentAccount)}</div>
             </div>
             <div className='mt-4'>
-                <h2 className='h1'>My <span className='text-blue-500'>NFTs</span></h2>
-                
+                <h2 className='h2'>My <span className='text-blue-500'>Listed NFTs</span></h2>
+                {loading === true ? (<div>Loading...</div>) : (<MyNftGrid items={listedItems} type="Listed" />)}
+            </div>
+            <div className='mt-4'>
+                <h2 className='h2'>Sold <span className='text-blue-500'> NFTs</span></h2>
+                {loading === true ? (<div>Loading...</div>) : (<MyNftGrid items={soldItems} type="Sold" />)}
+            </div>
+            <div className='mt-4'>
+                <h2 className='h2'>My <span className='text-blue-500'>Purchases </span></h2>
+                {loading === true ? (<div>Loading...</div>) : (<MyNftGrid items={purchaseItems} type="Purchased" />)}
             </div>
         </div>
     )
