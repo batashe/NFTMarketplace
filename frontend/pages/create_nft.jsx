@@ -88,9 +88,9 @@ const CreateNFT = () => {
     }
 
     return (
-        <div className='flex flex-col items-center'>
-            <div className="flex flex-col w-1/2 gap-4 mt-4 mb-8">
-                <h2 className='h1 my-4'>Create New <span className='text-blue-500'>NFT</span> Item</h2>
+        <div className='flex flex-col md:items-center'>
+            <div className="flex flex-col md:w-1/2 gap-4 mt-4 mb-8 md:p-2 px-4">
+                <h2 className='md:h1 my-4 h2 '>Create New <span className='text-blue-500'>NFT</span> Item</h2>
                 {
                     image ? (
                         <img className="rounded-lg mt-4" width="300" height="300" src={image} />
