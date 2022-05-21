@@ -42,7 +42,7 @@ const Layout = ({ children }) => {
         <div className={darkMode ? "dark" : " "}>
             <div className='dark:dark bg-light dark:text-white text-gray-900 font-poppins box-border'>
                 {mobNav ? <MobNavbar darkMode={darkMode} changeDarkMode={changeDarkMode} /> : <Navbar darkMode={darkMode} changeDarkMode={changeDarkMode} />}
-                <main className="md:max-w-[95%] md:m-auto md:px-2 px-2 font-poppins h-screen">
+                <main className="md:max-w-[95%] md:m-auto md:px-2 px-2 font-poppins h-full">
                     {children}
                 </main>
                 <Footer />

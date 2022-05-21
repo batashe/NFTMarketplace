@@ -9,6 +9,7 @@ import NFTAbi from "../utils/NFT.json";
 import MarketplaceAddress from "../utils/MarketplaceAdd.json";
 import NFTAddress from "../utils/NFTAdd.json";
 import MyNftGrid from '../components/nft/MyNftGrid';
+import GridLoader from '../components/Loader/GridLoader';
 
 /**
  * @title User Profile
@@ -130,19 +131,19 @@ export default function Profile() {
                 </div>
             </div>
             <div className='flex justify-center items-center md:mt-[150px] mt-3'>
-                <div className='bg-gray-300 dark:bg-gray-800 py-2 px-8 h4 rounded-full'>{ShortenAdd(currentAccount)}</div>
+                <div className='bg-gray-300 dark:bg-gray-800 py-2 px-8 h4 rounded-full '>{ShortenAdd(currentAccount)}</div>
             </div>
             <div className='mt-4'>
                 <h2 className='h2'>My <span className='text-blue-500'>Listed NFTs</span></h2>
-                {loading === true ? (<div>Loading...</div>) : (<MyNftGrid items={listedItems} type="Listed" />)}
+                {loading === true ? (<div><GridLoader /></div>) : (<MyNftGrid items={listedItems} type="Listed" />)}
             </div>
             <div className='mt-4'>
                 <h2 className='h2'>Sold <span className='text-blue-500'> NFTs</span></h2>
-                {loading === true ? (<div>Loading...</div>) : (<MyNftGrid items={soldItems} type="Sold" />)}
+                {loading === true ? (<div><GridLoader /></div>) : (<MyNftGrid items={soldItems} type="Sold" />)}
             </div>
             <div className='mt-4'>
                 <h2 className='h2'>My <span className='text-blue-500'>Purchases </span></h2>
-                {loading === true ? (<div>Loading...</div>) : (<MyNftGrid items={purchaseItems} type="Purchased" />)}
+                {loading === true ? (<div><GridLoader /></div>) : (<MyNftGrid items={purchaseItems} type="Purchased" />)}
             </div>
         </div>
     )

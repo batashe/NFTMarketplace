@@ -35,13 +35,13 @@ const Navbar = ({ darkMode, changeDarkMode }) => {
 
                     {/*Create Button*/}
                     <div className=' md:items-center md:flex md:justify-center hidden'>
-                        <button className='px-6 py-2 rounded-3xl bg-gradient-to-r from-violet-500 to-fuchsia-500 h4 text-white'><Link href="/create_nft"><a>Create</a></Link></button>
+                        <button className='px-6 py-2 rounded-3xl glitter h4 text-white hover:animate-pulse'><Link href="/create_nft"><a>Create</a></Link></button>
                     </div>
 
                     {/*Connect Wallet*/}
                     <div className=' md:items-center md:flex md:justify-center hidden cursor-pointer'>
                         {!currentAccount && <button className='px-6 py-1.5 rounded-3xl border-[1px] border-gray-300' onClick={connectWallet}>Sign in</button>}
-                        {currentAccount && <div className='px-8 py-2 rounded-3xl bg-gradient-to-r from-violet-500 to-fuchsia-500 h4 text-white'>{ShortenAdd(currentAccount)}</div>}
+                        {currentAccount && <div className='px-8 py-2 rounded-3xl glitter h4 text-white'>{ShortenAdd(currentAccount)}</div>}
                     </div>
 
                     <div className='md:flex md:flex-row md:justify-end md:items-center  hidden'>

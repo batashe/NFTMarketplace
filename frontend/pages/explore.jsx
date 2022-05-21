@@ -6,6 +6,7 @@ import MarketplaceAbi from "../utils/Marketplace.json";
 import NFTAbi from "../utils/NFT.json";
 import MarketplaceAddress from "../utils/MarketplaceAdd.json";
 import NFTAddress from "../utils/NFTAdd.json";
+import GridLoader from '../components/Loader/GridLoader';
 
 
 /**
@@ -61,8 +62,8 @@ const Explore = () => {
                 })
             }
         }
-        setItems(items)
-        setLoading(false)
+        setItems(items);
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -96,11 +97,9 @@ const Explore = () => {
     }
 
 
-
-
     return (
         <div>
-            {loading === true ? (<div>Loading...</div>) : (<NftGrid items={items} buyMarketItem={buyMarketItem} />)}
+            {loading === true ? (<GridLoader />) : (<NftGrid items={items} buyMarketItem={buyMarketItem} />)}
         </div>
     )
 }

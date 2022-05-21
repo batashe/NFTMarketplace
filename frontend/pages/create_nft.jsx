@@ -6,16 +6,24 @@ import MarketplaceAbi from "../utils/Marketplace.json";
 import NFTAbi from "../utils/NFT.json";
 import MarketplaceAddress from "../utils/MarketplaceAdd.json";
 import NFTAddress from "../utils/NFTAdd.json";
+import { BsImageAlt } from "react-icons/bs";
+import { useRouter } from 'next/router';
+
 
 const client = create('https://ipfs.infura.io:5001/api/v0');
 
 
 const CreateNFT = () => {
 
+    const inputClass = "mt-2 border rounded p-4 required dark:bg-[#474747] dark:border-0 focus:outline-none focus:bg-gray-100 dark:focus:bg-[#292929]";
+
     const [image, setImage] = useState('');
     const [price, setPrice] = useState(null);
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
+
 
     //upload to ipfs
     const uploadToIPFS = async (event) => {
@@ -46,6 +54,8 @@ const CreateNFT = () => {
 
     const mintThenList = async (result) => {
 
+        setLoading(true);
+
         const web3Modal = new Web3Modal({
             network: 'rinkeby',
             cacheProvider: true,
@@ -71,42 +81,57 @@ const CreateNFT = () => {
         // add nft to market_place
         const listingPrice = ethers.utils.parseEther(price.toString())
         await (await market_place.makeItem(nft.address, id, listingPrice)).wait()
+
+        setLoading(false);
+
+        router.push('/explore')
     }
 
     return (
-        <div className='flex flex-col justify-center h-screen'>
-            <h2>Create nft</h2>
-            <div>
-                <div className="w-1/2 flex flex-col pb-12">
+        <div className='flex flex-col items-center'>
+            <div className="flex flex-col w-1/2 gap-4 mt-4 mb-8">
+                <h2 className='h1 my-4'>Create New <span className='text-blue-500'>NFT</span> Item</h2>
+                {
+                    image ? (
+                        <img className="rounded-lg mt-4" width="300" height="300" src={image} />
+                    ) : (<p className=' w-[300px] rounded-lg dark:bg-[#474747] bg-[#f1f1f4] flex items-center justify-center p-10 animate-pulse'><BsImageAlt fontSize={200} fill="#222" /></p>)
+                }
+                <form>
                     <input
-                        placeholder="Asset Name"
-                        className="mt-8 border rounded p-4"
-                        onChange={(e) => setName(e.target.value)}
+                        type="file"
+                        name="file"
+                        className="file:cursor-pointer block w-full text-sm text-slate-500
+                            file:mr-4 file:py-2 file:px-4
+                            file:rounded-full file:border-0
+                            file:text-sm file:font-semibold
+                            file:bg-violet-50 file:text-blue-500
+                            hover:file:bg-violet-100"
+                        onChange={uploadToIPFS}
                     />
-                    <textarea
-                        placeholder="Asset Description"
-                        className="mt-2 border rounded p-4"
-                        onChange={(e) => setDescription(e.target.value)}
+                </form>
+                <input
+                    placeholder="NFT Name"
+                    className={inputClass}
+                    onChange={(e) => setName(e.target.value)}
+                />
+                <textarea
+                    placeholder="NFT Description"
+                    className={inputClass}
+                    onChange={(e) => setDescription(e.target.value)}
 
-                    />
-                    <input
-                        placeholder="Asset Price in Eth"
-                        className="mt-2 border rounded p-4"
-                        onChange={(e) => setPrice(e.target.value)}
-                    />
-                    <form>
-                        <input
-                            type="file"
-                            name="file"
-                            className="my-4 cursor-pointer"
-                            onChange={uploadToIPFS}
-                        />
-                    </form>
+                />
+                <input
+                    placeholder="NFT Price in Ether"
+                    className={inputClass}
+                    onChange={(e) => setPrice(e.target.value)}
+                    step="0.001"
+                    type="number"
+                    min="0.001"
+                />
+                {loading === true ? (<button className="font-bold mt-4 bg-gradient-to-r from-blue-500 via-[#00ffff] to-green-400 text-gray-800 rounded p-4 shadow-lg disabled animate-pulse">Processing Transaction....</button>) : (<button className="font-bold mt-4 bg-blue-500 text-white rounded p-4 shadow-lg" onClick={createNFT}>
+                    Create nft
+                </button>)}
 
-                    <button className="font-bold mt-4 bg-pink-500 text-white rounded p-4 shadow-lg" onClick={createNFT}>
-                        Create nft
-                    </button>
-                </div>
             </div>
         </div>
     )

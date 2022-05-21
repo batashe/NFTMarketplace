@@ -40,4 +40,7 @@
         @apply bg-[#008EFF]
     }
 
+    .glitter {
+        @apply bg-gradient-to-r from-blue-500 via-[#00b5b5] to-green-500;
+    }
 }
