@@ -107,9 +107,6 @@ export default function Profile() {
 
     }
 
-
-
-
     useEffect(() => {
         loadListedItems()
     }, [])
