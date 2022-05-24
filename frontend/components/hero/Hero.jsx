@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 const style = {
@@ -48,9 +49,9 @@ const Hero = () => {
                             />
                             <div className={style.author}>
                                 <div className={style.name}>Nirvana</div>
-                                <a className="text-[#1868b7]" href="/">
+                                <Link> <a className="text-[#1868b7]" href="/">
                                     Adarsh Kushwaha
-                                </a>
+                                </a></Link>
                             </div>
                         </div>
                     </div>
