@@ -49,9 +49,9 @@ const Hero = () => {
                             />
                             <div className={style.author}>
                                 <div className={style.name}>Nirvana</div>
-                                <Link href="/"> <a className="text-[#1868b7]">
+                                <div className="text-[#1868b7]">
                                     Adarsh Kushwaha
-                                </a></Link>
+                                </div>
                             </div>
                         </div>
                     </div>
