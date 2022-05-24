@@ -19,7 +19,7 @@ const Navbar = ({ darkMode, changeDarkMode }) => {
 
     return (
         <nav className='sticky top-0 z-30 w-full backdrop-filter backdrop-blur-xl bg-opacity-10 md:px-[54px] px-2'>
-            <div className='md:flex md:flex-row md:justify-start md:items-center max-w-[100%] md:gap-4 py-5 md:h4 text-gray-500 flex flex-row justify-between items-center'>
+            <div className='md:flex md:flex-row md:justify-start md:items-center max-w-[100%] md:gap-4 py-4 md:h4 text-gray-500 flex flex-row justify-between items-center'>
                 <div className='md:w-[5%] md:h3 text-gray-800 dark:text-white h4'><Image src={logo} alt="logo" width={40} height={40} /></div>
                 {/*Serach Bar*/}
                 <div className='md:w-[45%]'>

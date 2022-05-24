@@ -1,8 +1,11 @@
 import React from 'react'
+import Hero from '../components/hero/Hero'
 
 const Home = () => {
   return (
-    <div className='h1 flex justify-center items-center h-screen'>Home Page Under Construction</div>
+    <div className=''>
+      <Hero />
+    </div>
   )
 }
 

@@ -9,6 +9,7 @@ import NFTAddress from "../utils/NFTAdd.json";
 import GridLoader from '../components/Loader/GridLoader';
 
 
+
 /**
  * @title Index
  * @author - Adarsh
@@ -62,15 +63,18 @@ const Explore = () => {
                 })
             }
         }
+
         setItems(items);
         setLoading(false);
     }
 
+    loadMarketplaceItems()
+
+
     useEffect(() => {
         loadMarketplaceItems()
+
     }, [])
-
-
 
     const buyMarketItem = async (item) => {
 

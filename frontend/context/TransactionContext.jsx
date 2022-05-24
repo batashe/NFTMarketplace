@@ -36,7 +36,7 @@ export const TransactionProvider = ({ children }) => {
                     setCurrentAccount(account);
                     const provider = new ethers.providers.Web3Provider(web3ModalProvider);
                     const signer = provider.getSigner();
-                    loadContracts(signer);
+                    // loadContracts(signer);
                 }
 
             } catch (error) {
@@ -58,7 +58,7 @@ export const TransactionProvider = ({ children }) => {
                 setCurrentAccount(account);
                 const provider = new ethers.providers.Web3Provider(web3ModalProvider);
                 const signer = provider.getSigner();
-                loadContracts(signer);
+                // loadContracts(signer);
 
 
             } else {

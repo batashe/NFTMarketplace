@@ -134,15 +134,15 @@ export default function Profile() {
                 <div className='bg-gray-300 dark:bg-gray-800 py-2 px-8 h4 rounded-full '>{ShortenAdd(currentAccount)}</div>
             </div>
             <div className='mt-4'>
-                <h2 className='h2'>My <span className='text-blue-500'>Listed NFTs</span></h2>
+                <h2 className='h2 md:max-w-[95%] md:m-auto md:px-2 px-2'>My <span className='text-blue-500'>Listed NFTs</span></h2>
                 {loading === true ? (<div><GridLoader /></div>) : (<MyNftGrid items={listedItems} type="Listed" />)}
             </div>
             <div className='mt-4'>
-                <h2 className='h2'>Sold <span className='text-blue-500'> NFTs</span></h2>
+                <h2 className='h2 md:max-w-[95%] md:m-auto md:px-2 px-2'>Sold <span className='text-blue-500'> NFTs</span></h2>
                 {loading === true ? (<div><GridLoader /></div>) : (<MyNftGrid items={soldItems} type="Sold" />)}
             </div>
             <div className='mt-4'>
-                <h2 className='h2'>My <span className='text-blue-500'>Purchases </span></h2>
+                <h2 className='h2 md:max-w-[95%] md:m-auto md:px-2 px-2'>My <span className='text-blue-500'>Purchases </span></h2>
                 {loading === true ? (<div><GridLoader /></div>) : (<MyNftGrid items={purchaseItems} type="Purchased" />)}
             </div>
         </div>
