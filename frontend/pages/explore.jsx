@@ -68,7 +68,7 @@ const Explore = () => {
         setLoading(false);
     }
 
-    loadMarketplaceItems()
+
 
 
     useEffect(() => {

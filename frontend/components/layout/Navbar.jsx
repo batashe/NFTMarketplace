@@ -17,6 +17,7 @@ const Navbar = ({ darkMode, changeDarkMode }) => {
 
     const { currentAccount, connectWallet } = useContext(TransactionContext);
 
+
     return (
         <nav className='sticky top-0 z-30 w-full backdrop-filter backdrop-blur-xl bg-opacity-10 md:px-[54px] px-2'>
             <div className='md:flex md:flex-row md:justify-start md:items-center max-w-[100%] md:gap-4 py-4 md:h4 text-gray-500 flex flex-row justify-between items-center'>
