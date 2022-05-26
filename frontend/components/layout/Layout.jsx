@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Footer from './Footer';
 import MobNavbar from './MobNavbar';
 import Navbar from './Navbar';
+import { ToastContainer } from 'react-toastify';
 
 /**
  * @title Layout
@@ -34,7 +35,7 @@ const Layout = ({ children }) => {
 
     // To load data
     const loadData = () => {
-        const mode = JSON.parse(localStorage.getItem('darkMode')); // get item from localStorage
+        const mode = JSON.parse(localStorage.getItem('darkMode')); // get mode from localStorage
         setDarkMode(mode);
     }
 
@@ -47,6 +48,9 @@ const Layout = ({ children }) => {
                 </main>
                 <Footer />
             </div>
+
+            {/* ToastContainer for toaster notifications */}
+            <ToastContainer draggable hideProgressBar={false} limit={1} className="toast-container-custom" />
         </div>
     )
 }
