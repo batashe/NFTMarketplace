@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
-const PageNotFound = () => {
+const PageNotFound = ({name,image,description,status}) => {
       
     const router= useRouter();
 
@@ -13,14 +13,14 @@ const PageNotFound = () => {
       <div
         className="flex flex-col items-center justify-center md:py-24 lg:py-32"
       >
-        <h1 className="font-bold text-blue-600 text-9xl">404</h1>
+        <h1 className="font-bold text-blue-600 text-9xl">{status}</h1>
         <p
           className="mb-2 text-2xl font-bold text-center text-gray-800 md:text-3xl"
         >
-          <span className="text-red-500">Oops!</span> {router.query.name}
+          <span className="text-red-500">Oops!</span> {name}
         </p>
         <p className="mb-8 text-center text-gray-500 md:text-lg">
-        {router.query.description}
+        {description}
         </p>
         <a
           href="#"
@@ -30,7 +30,7 @@ const PageNotFound = () => {
       </div>
       <div className="mt-4">
         <img
-          src={router.query.image}
+          src={image}
           alt="img"
           className="object-cover object-cover h-96 w-96"
         />
