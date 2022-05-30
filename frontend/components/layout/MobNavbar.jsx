@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import logo from "../../assets/logo.png";
 import { FiSearch } from "react-icons/fi";
 import { HiMenuAlt2 } from "react-icons/hi";

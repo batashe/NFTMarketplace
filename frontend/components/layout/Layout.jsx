@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
 import Footer from './Footer';
 import MobNavbar from './MobNavbar';
 import Navbar from './Navbar';
@@ -40,6 +41,7 @@ const Layout = ({ children }) => {
 
     return (
         <div className={darkMode ? "dark" : " "}>
+            {darkMode === true ? <ToastContainer theme='dark' /> : <ToastContainer />}
             <div className='dark:dark bg-light dark:text-white text-gray-900 font-poppins box-border'>
                 {mobNav ? <MobNavbar darkMode={darkMode} changeDarkMode={changeDarkMode} /> : <Navbar darkMode={darkMode} changeDarkMode={changeDarkMode} />}
                 <main className=" font-poppins h-full">

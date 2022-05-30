@@ -10,6 +10,9 @@ import MarketplaceAddress from "../utils/MarketplaceAdd.json";
 import NFTAddress from "../utils/NFTAdd.json";
 import MyNftGrid from '../components/nft/MyNftGrid';
 import GridLoader from '../components/Loader/GridLoader';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import NotFound from '../components/ui/NotFound';
 
 /**
  * @title User Profile
@@ -23,35 +26,73 @@ export default function Profile() {
     const [listedItems, setListedItems] = useState([]);
     const [soldItems, setSoldItems] = useState([]);
     const [currentAccount, setCurrentAccount] = useState("");
-    const [purchaseItems, setPurchaseItems] = useState([])
+    const [purchaseItems, setPurchaseItems] = useState([]);
+
+    const wrongNetErrorMsg = () => toast.error("Use only Rinkeby Testnet", { theme: "colored" });
 
     async function loadListedItems() {
 
-        const web3Modal = new Web3Modal({
-            network: 'rinkeby',
-            cacheProvider: true,
-        })
+        try {
 
-        const web3ModalProvider = await web3Modal.connect();
-        const accounts = await web3ModalProvider.request({ method: 'eth_requestAccounts' });
-        const account = await accounts[0];
-        setCurrentAccount(account);
-        const provider = new ethers.providers.Web3Provider(web3ModalProvider);
-        const signer = provider.getSigner();
+            if (typeof window.ethereum === "undefined") {
+                setCurrentAccount("");
+                return;
+            }
 
-        const market_place = new ethers.Contract(MarketplaceAddress.address, MarketplaceAbi.abi, signer);
+            const web3Modal = new Web3Modal({
+                network: 'rinkeby',
+                cacheProvider: true,
+            })
 
-        const nft = new ethers.Contract(NFTAddress.address, NFTAbi.abi, signer);
+            const web3ModalProvider = await web3Modal.connect();
+            const accounts = await web3ModalProvider.request({ method: 'eth_requestAccounts' });
+            const account = await accounts[0];
+            setCurrentAccount(account);
+            const provider = new ethers.providers.Web3Provider(web3ModalProvider);
+            const signer = provider.getSigner();
 
-        // Load all sold items that the user listed
-        const itemCount = await market_place.itemCount()
+            const market_place = new ethers.Contract(MarketplaceAddress.address, MarketplaceAbi.abi, signer);
 
-        let listedItems = []
-        let soldItems = []
+            const nft = new ethers.Contract(NFTAddress.address, NFTAbi.abi, signer);
 
-        for (let indx = 1; indx <= itemCount; indx++) {
-            const i = await market_place.items(indx)
-            if (i.seller.toLowerCase() === account) {
+            // Load all sold items that the user listed
+            const itemCount = await market_place.itemCount()
+
+            let listedItems = []
+            let soldItems = []
+
+            for (let indx = 1; indx <= itemCount; indx++) {
+                const i = await market_place.items(indx)
+                if (i.seller.toLowerCase() === account) {
+                    // get uri url from nft contract
+                    const uri = await nft.tokenURI(i.tokenId)
+                    // use uri to fetch the nft metadata stored on ipfs 
+                    const response = await fetch(uri)
+                    const metadata = await response.json()
+                    // get total price of item (item price + fee)
+                    const totalPrice = await market_place.getTotalPrice(i.itemId)
+                    // define listed item object
+                    let item = {
+                        totalPrice,
+                        price: i.price,
+                        itemId: i.itemId,
+                        name: metadata.name,
+                        description: metadata.description,
+                        image: metadata.image
+                    }
+                    listedItems.push(item)
+                    // Add listed item to sold items array if sold
+                    if (i.sold) soldItems.push(item)
+                }
+            }
+
+            // Fetch purchased items from marketplace by quering Offered events with the buyer set as the user
+            const filter = market_place.filters.Bought(null, null, null, null, null, account)
+            const results = await market_place.queryFilter(filter)
+            //Fetch metadata of each nft and add that to listedItem object.
+            const purchases = await Promise.all(results.map(async i => {
+                // fetch arguments from each result
+                i = i.args
                 // get uri url from nft contract
                 const uri = await nft.tokenURI(i.tokenId)
                 // use uri to fetch the nft metadata stored on ipfs 
@@ -60,7 +101,7 @@ export default function Profile() {
                 // get total price of item (item price + fee)
                 const totalPrice = await market_place.getTotalPrice(i.itemId)
                 // define listed item object
-                let item = {
+                let purchasedItem = {
                     totalPrice,
                     price: i.price,
                     itemId: i.itemId,
@@ -68,42 +109,19 @@ export default function Profile() {
                     description: metadata.description,
                     image: metadata.image
                 }
-                listedItems.push(item)
-                // Add listed item to sold items array if sold
-                if (i.sold) soldItems.push(item)
-            }
+                return purchasedItem;
+            }))
+
+            setLoading(false)
+            setListedItems(listedItems)
+            setSoldItems(soldItems)
+            setPurchaseItems(purchases);
+
+        } catch (err) {
+            alert("Please Use Rinkeby Testnet: " + err.message);
+            wrongNetErrorMsg();
+            //console.log(error);
         }
-
-        // Fetch purchased items from marketplace by quering Offered events with the buyer set as the user
-        const filter = market_place.filters.Bought(null, null, null, null, null, account)
-        const results = await market_place.queryFilter(filter)
-        //Fetch metadata of each nft and add that to listedItem object.
-        const purchases = await Promise.all(results.map(async i => {
-            // fetch arguments from each result
-            i = i.args
-            // get uri url from nft contract
-            const uri = await nft.tokenURI(i.tokenId)
-            // use uri to fetch the nft metadata stored on ipfs 
-            const response = await fetch(uri)
-            const metadata = await response.json()
-            // get total price of item (item price + fee)
-            const totalPrice = await market_place.getTotalPrice(i.itemId)
-            // define listed item object
-            let purchasedItem = {
-                totalPrice,
-                price: i.price,
-                itemId: i.itemId,
-                name: metadata.name,
-                description: metadata.description,
-                image: metadata.image
-            }
-            return purchasedItem;
-        }))
-
-        setLoading(false)
-        setListedItems(listedItems)
-        setSoldItems(soldItems)
-        setPurchaseItems(purchases);
 
     }
 
@@ -114,8 +132,8 @@ export default function Profile() {
 
     if (!currentAccount) {
         return (
-            <div className='flex justify-center items-center h2 h-screen'>
-                Please Sign in through metamask to create your account
+            <div>
+                <NotFound status="401" name="Unauthenticated Route" description="Please Install Metamask to Sign in" />
             </div>
         )
     }

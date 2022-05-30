@@ -15,8 +15,7 @@ import { ShortenAdd } from '../../helpers/ShortAdd';
 
 const Navbar = ({ darkMode, changeDarkMode }) => {
 
-    const { currentAccount, connectWallet } = useContext(TransactionContext);
-
+    const { currentAccount, connectWallet, error, setError } = useContext(TransactionContext);
 
     return (
         <nav className='sticky top-0 z-30 w-full backdrop-filter backdrop-blur-xl bg-opacity-10 md:px-[54px] px-2'>
