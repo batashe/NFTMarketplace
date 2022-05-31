@@ -15,7 +15,10 @@ const NftGrid = ({ items, buyMarketItem }) => {
     let isFav = true;
 
     if (items.length <= 0) {
-        return <p>NO NFTS FOUND</p>
+        return (
+            <div className='h3 md:max-w-[95%] md:m-auto md:px-2 px-2'><p >NO NFTS FOUND</p></div>
+        )
+
     }
 
     return (

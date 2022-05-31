@@ -141,6 +141,7 @@ const Explore = () => {
 
     return (
         <div>
+            <h2 className='h2 max-w-[95%] m-auto md:px-2 px-2 my-4'>All Listed<span className='text-blue-500'> NFTs</span></h2>
             {loading === true ? (<GridLoader />) : (<NftGrid items={items} buyMarketItem={buyMarketItem} />)}
         </div>
     )
