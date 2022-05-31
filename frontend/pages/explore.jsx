@@ -23,12 +23,12 @@ import NotFound from '../components/ui/NotFound';
 const Explore = () => {
 
     const [items, setItems] = useState([]);
+    const [loading, setLoading] = useState(true);
     // const [error, setError] = useState(false);
     // const [errMsg, setErrMsg] = useState("");
-    //const [loading, setLoading] = useState(true);
     //const [currentAccount, setCurrentAccount] = useState("");
 
-    const { loading, setLoading, currentAccount, setCurrentAccount, setHasWallet } = useContext(TransactionContext);
+    const { currentAccount, setCurrentAccount, setHasWallet } = useContext(TransactionContext);
 
     const buyErrorMsg = () => toast.error("Insufficient fund to buy this NFT");
     const wrongNetErrorMsg = () => toast.error("Use only Rinkeby Testnet", { theme: "colored" });
