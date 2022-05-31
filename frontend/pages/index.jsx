@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React, { useContext } from 'react'
 import { TransactionContext } from '../context/TransactionContext'
 
@@ -38,8 +39,8 @@ const Home = () => {
                             </div>
                             {!currentAccount ? <button className={style.walletButton} onClick={() => connectWallet()}>Connect to Wallet</button> :
                                 <div className={style.ctaContainer}>
-                                    <button className={style.accentedButton}>Explore</button>
-                                    <button className={style.button}>Create</button>
+                                    <button className={style.accentedButton}><Link href="/explore"><a>Explore</a></Link></button>
+                                    <button className={style.button}><Link href="/create_nft"><a>Create</a></Link></button>
                                 </div>
                             }
                         </div>
@@ -48,7 +49,6 @@ const Home = () => {
                                 className="rounded-t-lg"
                                 src="https://lh3.googleusercontent.com/ujepnqpnL0nDQIHsWxlCXzyw4pf01yjz1Jmb4kAQHumJAPrSEj0-e3ABMZlZ1HEpJoqwOcY_kgnuJGzfXbd2Tijri66GXUtfN2MXQA=s550"
                                 alt="hero"
-
                             />
                             <div className={style.infoContainer}>
                                 <img

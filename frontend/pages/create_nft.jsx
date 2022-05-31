@@ -24,11 +24,13 @@ const CreateNFT = () => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [loading, setLoading] = useState(false);
+    //const [priceError, setPriceError] = useState(false);
     const router = useRouter();
 
     const { currentAccount } = useContext(TransactionContext);
 
-    console.log(currentAccount)
+    //check vallid value of price of NFT
+
 
     //upload to ipfs
     const uploadToIPFS = async (event) => {
@@ -148,6 +150,7 @@ const CreateNFT = () => {
                     type="number"
                     min="0.001"
                 />
+                {price < 0  ? <p className='text-[14px] font-normal text-red-500'>*price cannot be negative</p> : ""}
                 {loading === true ? (<button className="font-bold mt-4 bg-gradient-to-r from-blue-500 via-[#00ffff] to-green-400 text-gray-800 rounded p-4 shadow-lg disabled animate-pulse">Processing Transaction....</button>) : (<button className="font-bold mt-4 bg-blue-500 text-white rounded p-4 shadow-lg" onClick={createNFT}>
                     Create nft
                 </button>)}
