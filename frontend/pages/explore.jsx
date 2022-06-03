@@ -82,7 +82,6 @@ const Explore = () => {
                     })
                 }
             }
-
             setItems(items);
             setLoading(false);
 
@@ -90,13 +89,36 @@ const Explore = () => {
             alert("Please Use Rinkeby Testnet: " + err.message);
             wrongNetErrorMsg();
         }
+    }
 
+    const getDataFromRedis = async () => {
+        try {
+            
+            setLoading(true);
+
+            const response = await fetch('/api/nfts')
+            const data = await response.json()
+
+            // if Redis has no record than we get data from blockchain server else 
+            // we get data from redis
+            if(data.length === 0) {
+                loadMarketplaceItems();
+            } else {
+                setItems(data);
+                setLoading(false);
+            }
+        } catch (error) {
+            loadMarketplaceItems();
+        }
+        
     }
 
     useEffect(() => {
 
-        loadMarketplaceItems()
+        // loadMarketplaceItems()
 
+        // get NFT data from redis
+        getDataFromRedis()
     }, [])
 
     const buyMarketItem = async (item) => {
