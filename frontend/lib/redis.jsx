@@ -1,15 +1,6 @@
-import { createClient } from 'redis'
 import { Client, Entity, Schema } from 'redis-om'
 
 const client = new Client()
-
-// async function connect() {
-//     const redis = createClient(process.env.REDIS_URL)
-//         await redis.connect()
-//         const client = await new Client().use(redis)
-
-//         return client;
-// }
 
 class NFT extends Entity {}
 let nftSchema = new Schema(
@@ -26,31 +17,19 @@ let nftSchema = new Schema(
     }
 );
 
-// export async function createNFT(data) {
-//     await connect();
-
-//     const repository = new Repository(nftSchema, client);
-
-//     const nft = repository.createEntity(data);
-
-//     const id = await repository.save(nft);
-//     return id;
-// }
 
 export async function getNFTs() {
 
-    // return "hello"
+    await client.open(process.env.REDIS_URL) // open the connection with redis
 
-    await client.open(process.env.REDIS_URL)
+    const nftRepository = client.fetchRepository(nftSchema) // fetch the repository
 
-    const nftRepository = client.fetchRepository(nftSchema)
+    await nftRepository.createIndex(); // create index
 
-    await nftRepository.createIndex();
+    const nfts = await nftRepository.search().return.all(); // returning all the entries
 
-    // const albums = await nftRepository.fetch();
-    const albums = await nftRepository.search().return.all();
+    await client.close() // note - after every request, close the connection
 
-    console.log(albums)
-    return albums;
+    return nfts;
 }
 
