@@ -1,16 +1,17 @@
 import Link from 'next/link';
 import React, { useContext } from 'react'
+import InfoSection from '../components/home/InfoSection';
 import { TransactionContext } from '../context/TransactionContext'
 
 const style = {
-    wrapper: `relative backdrop-blur-xl `,
-    container: `before:content-[''] before:bg-red-500 before:absolute before:top-0 before:left-0 before:right-0 before:bottom-0 before:bg-[url('https://lh3.googleusercontent.com/ujepnqpnL0nDQIHsWxlCXzyw4pf01yjz1Jmb4kAQHumJAPrSEj0-e3ABMZlZ1HEpJoqwOcY_kgnuJGzfXbd2Tijri66GXUtfN2MXQA=s250')] before:bg-cover before:bg-center before:opacity-40 before:blur `,
+    wrapper: `relative backdrop-blur-xl h-[100%] `,
+    container: `before:content-[''] before:bg-gray-100 before:absolute before:top-0 before:left-0 before:right-0 before:bottom-0 before:bg-[url('https://lh3.googleusercontent.com/ujepnqpnL0nDQIHsWxlCXzyw4pf01yjz1Jmb4kAQHumJAPrSEj0-e3ABMZlZ1HEpJoqwOcY_kgnuJGzfXbd2Tijri66GXUtfN2MXQA=s250')] before:bg-cover before:bg-center before:opacity-40 before:blur `,
     contentWrapper: `flex py-6 md:pt-10 relative justify-center flex-wrap items-center md:gap-2 gap-6 `,
     copyContainer: `md:w-1/2 w-[90%] `,
     title: `relative  md:text-[46px] md:font-bold text-[28px] font-semibold text-[30px] leading-tight`,
     description: `text-[#8a939b] container-[400px] text-lg mt-[0.8rem] mb-[2.5rem]`,
     ctaContainer: `flex`,
-    walletButton:`relative text-lg font-semibold px-10 py-2.5 rounded-lg mr-5 hover:bg-blue-500 text-white bg-[#42a0ff] cursor-pointer`,
+    walletButton: `relative text-lg font-semibold px-10 py-2.5 rounded-lg mr-5 hover:bg-blue-500 text-white bg-[#42a0ff] cursor-pointer`,
     accentedButton: ` relative text-lg font-semibold px-10 py-2.5 border-2 bg-white border-[#2181e2] rounded-lg mr-5 text-blue-500 hover:text-white hover:bg-[#42a0ff] hover:border-[#42a0ff] cursor-pointer`,
     button: ` relative text-lg font-semibold px-10 py-2.5 glitter rounded-lg mr-5 text-[#e4e8ea] hover:animate-pulse cursor-pointer`,
     cardContainer: `rounded-[3rem] md:p-0 p-8 `,
@@ -68,6 +69,10 @@ const Home = () => {
                     </div>
                 </div>
             </div>
+            <div>
+                <InfoSection />
+            </div>
+
         </div>
     )
 }

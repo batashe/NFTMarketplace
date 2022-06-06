@@ -1,0 +1,6 @@
+.blend {
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.378), transparent), url("../assets/bgnft.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+}
