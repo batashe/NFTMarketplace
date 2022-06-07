@@ -8,7 +8,7 @@ let nftSchema = new Schema(
     {
         name: { type: "string" },
         description: { type: "string" },
-        images: { type: "string" },
+        image_url: { type: "string" },
         price: { type: "number" },
         sender: { type: "string" },
     },
@@ -33,3 +33,18 @@ export async function getNFTs() {
     return nfts;
 }
 
+
+export async function createNFT(nft){
+    console.log('Hit createNFT');
+    await client.open(process.env.REDIS_URL)
+
+    const nftRepository = client.fetchRepository(nftSchema)
+
+    await nftRepository.createIndex();
+
+    const nfts = await nftRepository.createAndSave(nft);
+
+    await client.close() 
+
+    return nfts;
+}

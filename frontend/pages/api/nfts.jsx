@@ -5,7 +5,7 @@ export default async function handler(req, res) {
         const response = await getNFTs();
         res.status(200).json(response)
     } else if (req.method === 'POST') { 
-        const id = await createNFT(req.body);
+        const id = await createNFT(req.body,res);
         res.status(200).json({ id });
     }
 }
