@@ -8,15 +8,15 @@ let nftSchema = new Schema(
     {
         name: { type: "string" },
         description: { type: "string" },
-        image_url: { type: "string" },
-        price: { type: "number" },
-        sender: { type: "string" },
+        image: { type: "string" },
+        seller: { type: "string" },
+        totalPrice: { type: "point" },
+        itemId: { type: "point" },
     },
     {
         dataStructure: 'JSON',
     }
 );
-
 
 export async function getNFTs() {
 
