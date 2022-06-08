@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { ethers } from 'ethers';
 import { create } from 'ipfs-http-client';
 import Web3Modal from "web3modal";
@@ -8,6 +8,8 @@ import MarketplaceAddress from "../utils/MarketplaceAdd.json";
 import NFTAddress from "../utils/NFTAdd.json";
 import { BsImageAlt } from "react-icons/bs";
 import { useRouter } from 'next/router';
+import { TransactionContext } from '../context/TransactionContext';
+import NotFound from '../components/ui/NotFound';
 
 
 const client = create('https://ipfs.infura.io:5001/api/v0');
@@ -22,7 +24,12 @@ const CreateNFT = () => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [loading, setLoading] = useState(false);
+    //const [priceError, setPriceError] = useState(false);
     const router = useRouter();
+
+    const { currentAccount } = useContext(TransactionContext);
+
+    //check vallid value of price of NFT
 
 
     //upload to ipfs
@@ -54,37 +61,52 @@ const CreateNFT = () => {
 
     const mintThenList = async (result) => {
 
-        setLoading(true);
+        try {
 
-        const web3Modal = new Web3Modal({
-            network: 'rinkeby',
-            cacheProvider: true,
-        })
+            setLoading(true);
 
-        const web3ModalProvider = await web3Modal.connect();
-        //const accounts = await web3ModalProvider.request({ method: 'eth_requestAccounts' });
-        // const account = await accounts[0];
-        const provider = new ethers.providers.Web3Provider(web3ModalProvider);
-        const signer = provider.getSigner();
+            const web3Modal = new Web3Modal({
+                network: 'rinkeby',
+                cacheProvider: true,
+            })
 
-        const market_place = new ethers.Contract(MarketplaceAddress.address, MarketplaceAbi.abi, signer);
+            const web3ModalProvider = await web3Modal.connect();
+            //const accounts = await web3ModalProvider.request({ method: 'eth_requestAccounts' });
+            // const account = await accounts[0];
+            const provider = new ethers.providers.Web3Provider(web3ModalProvider);
+            const signer = provider.getSigner();
 
-        const nft = new ethers.Contract(NFTAddress.address, NFTAbi.abi, signer);
+            const market_place = new ethers.Contract(MarketplaceAddress.address, MarketplaceAbi.abi, signer);
 
-        const uri = `https://ipfs.infura.io/ipfs/${result.path}`
-        // mint nft 
-        await (await nft.mint(uri)).wait()
-        // get tokenId of new nft 
-        const id = await nft.tokenCount()
-        // approve market_place to spend nft
-        await (await nft.setApprovalForAll(market_place.address, true)).wait()
-        // add nft to market_place
-        const listingPrice = ethers.utils.parseEther(price.toString())
-        await (await market_place.makeItem(nft.address, id, listingPrice)).wait()
+            const nft = new ethers.Contract(NFTAddress.address, NFTAbi.abi, signer);
 
-        setLoading(false);
+            const uri = `https://ipfs.infura.io/ipfs/${result.path}`
+            // mint nft 
+            await (await nft.mint(uri)).wait()
+            // get tokenId of new nft 
+            const id = await nft.tokenCount()
+            // approve market_place to spend nft
+            await (await nft.setApprovalForAll(market_place.address, true)).wait()
+            // add nft to market_place
+            const listingPrice = ethers.utils.parseEther(price.toString())
+            await (await market_place.makeItem(nft.address, id, listingPrice)).wait()
 
-        router.push('/explore')
+            setLoading(false);
+
+            router.push('/explore');
+
+        } catch (error) {
+
+        }
+
+    }
+
+    if (!currentAccount) {
+        return (
+            <div>
+                <NotFound status="401" name="Unauthenticated Route" description="Please Install Metamask to Sign in" />
+            </div>
+        )
     }
 
     return (
@@ -128,6 +150,7 @@ const CreateNFT = () => {
                     type="number"
                     min="0.001"
                 />
+                {price < 0  ? <p className='text-[14px] font-normal text-red-500'>*price cannot be negative</p> : ""}
                 {loading === true ? (<button className="font-bold mt-4 bg-gradient-to-r from-blue-500 via-[#00ffff] to-green-400 text-gray-800 rounded p-4 shadow-lg disabled animate-pulse">Processing Transaction....</button>) : (<button className="font-bold mt-4 bg-blue-500 text-white rounded p-4 shadow-lg" onClick={createNFT}>
                     Create nft
                 </button>)}

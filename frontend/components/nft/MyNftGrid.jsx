@@ -2,6 +2,7 @@ import React from 'react'
 import { FaEthereum } from "react-icons/fa";
 import { ethers } from "ethers";
 import { HiBadgeCheck } from "react-icons/hi";
+import NoNfts from '../ui/NoNfts';
 
 /**
  * @title NFT Grid
@@ -15,7 +16,9 @@ const MyNftGrid = ({ items, type }) => {
     let isFav = true;
 
     if (items.length <= 0) {
-        return <p>NO NFTS FOUND</p>
+        return (
+            <div className='h4 md:max-w-[95%] md:m-auto md:px-2 px-2'><NoNfts type={type}/></div>
+        )
     }
 
     return (

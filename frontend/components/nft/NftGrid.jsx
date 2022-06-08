@@ -3,6 +3,7 @@ import React from 'react';
 import { FaEthereum } from "react-icons/fa";
 import { ethers } from "ethers";
 
+
 /**
  * @title NFT Grid
  * @author Adarsh, Apoorv
@@ -10,11 +11,14 @@ import { ethers } from "ethers";
  **/
 
 const NftGrid = ({ items, buyMarketItem }) => {
+
     let isFav = true;
 
-
     if (items.length <= 0) {
-        return <p>NO NFTS FOUND</p>
+        return (
+            <div className='h3 md:max-w-[95%] md:m-auto md:px-2 px-2'><p >NO NFTS FOUND</p></div>
+        )
+
     }
 
     return (
