@@ -53,7 +53,25 @@ const CreateNFT = () => {
         if (!image || !price || !name || !description) return
         try {
             const result = await client.add(JSON.stringify({ image, price, name, description }))
-            mintThenList(result)
+            // mintThenList(result)
+            // console.log(result)
+            // call api to create nft in backend
+
+            const resp = await fetch('/api/nfts',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'image': image,
+                    'price': parseFloat(price),
+                    'name': name,
+                    'totalPrice': parseFloat(price),
+                    'seller': currentAccount,
+                    'description': description,
+                    'isFavourite'   : false
+            })});
+            console.log(resp);
         } catch (error) {
             console.log("ipfs uri upload error: ", error)
         }
