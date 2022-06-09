@@ -82,6 +82,7 @@ const Explore = () => {
                     })
                 }
             }
+            console.log(items);
             setItems(items);
             setLoading(false);
 
@@ -99,9 +100,10 @@ const Explore = () => {
             const response = await fetch('/api/nfts')
             const data = await response.json()
 
+            console.log(data);
             // if Redis has no record than we get data from blockchain server else 
             // we get data from redis
-            if(data.length === 0) {
+            if(data.length=== 0) {
                 loadMarketplaceItems();
             } else {
                 setItems(data);

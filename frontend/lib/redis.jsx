@@ -3,6 +3,7 @@ import { Client, Entity, Schema } from 'redis-om'
 const client = new Client()
 
 class NFT extends Entity {}
+
 let nftSchema = new Schema(
     NFT,
     {
@@ -36,13 +37,32 @@ export async function getNFTs() {
 
 export async function createNFT(nft){
     console.log('Hit createNFT');
+    // Establishing connection
     await client.open(process.env.REDIS_URL)
 
     const nftRepository = client.fetchRepository(nftSchema)
 
     await nftRepository.createIndex();
 
+    // Creating record in DB
     const nfts = await nftRepository.createAndSave(nft);
+
+    // CLOSE CONNECTION
+    await client.close() 
+
+    // REUTRN THE CREATED OBJECT IN RESPONSE
+    return nfts;
+}
+
+export async function getNFT(id) {
+    await client.open(process.env.REDIS_URL)
+
+    const nftRepository = client.fetchRepository(nftSchema)
+
+    await nftRepository.createIndex();
+
+    // Search by ID
+    const nfts = await nftRepository.search().where.id.eq(id).return.first();
 
     await client.close() 
 
