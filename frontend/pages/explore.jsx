@@ -92,9 +92,10 @@ const Explore = () => {
         }
     }
 
+    //getting NFTS from Database
     const getDataFromRedis = async () => {
         try {
-            
+
             setLoading(true);
 
             const response = await fetch('/api/nfts')
@@ -103,7 +104,7 @@ const Explore = () => {
             console.log(data);
             // if Redis has no record than we get data from blockchain server else 
             // we get data from redis
-            if(data.length=== 0) {
+            if (data.length === 0) {
                 loadMarketplaceItems();
             } else {
                 setItems(data);
@@ -112,7 +113,7 @@ const Explore = () => {
         } catch (error) {
             loadMarketplaceItems();
         }
-        
+
     }
 
     useEffect(() => {

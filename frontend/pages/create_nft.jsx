@@ -57,7 +57,7 @@ const CreateNFT = () => {
             // console.log(result)
             // call api to create nft in backend
 
-            const resp = await fetch('/api/nfts',{
+            const resp = await fetch('/api/nfts', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -66,12 +66,14 @@ const CreateNFT = () => {
                     'image': image,
                     'price': parseFloat(price),
                     'name': name,
-                    'totalPrice': parseFloat(price),
+                    // 'totalPrice': parseFloat(price),
                     'seller': currentAccount,
                     'description': description,
-                    'isFavourite'   : false
-            })});
-            console.log(resp);
+                    'isFavourite': false
+                })
+            });
+            const nftsData = await resp.json();
+            console.log(nftsData);
         } catch (error) {
             console.log("ipfs uri upload error: ", error)
         }
@@ -158,7 +160,6 @@ const CreateNFT = () => {
                     placeholder="NFT Description"
                     className={inputClass}
                     onChange={(e) => setDescription(e.target.value)}
-
                 />
                 <input
                     placeholder="NFT Price in Ether"
@@ -168,7 +169,7 @@ const CreateNFT = () => {
                     type="number"
                     min="0.001"
                 />
-                {price < 0  ? <p className='text-[14px] font-normal text-red-500'>*price cannot be negative</p> : ""}
+                {price < 0 ? <p className='text-[14px] font-normal text-red-500'>*price cannot be negative</p> : ""}
                 {loading === true ? (<button className="font-bold mt-4 bg-gradient-to-r from-blue-500 via-[#00ffff] to-green-400 text-gray-800 rounded p-4 shadow-lg disabled animate-pulse">Processing Transaction....</button>) : (<button className="font-bold mt-4 bg-blue-500 text-white rounded p-4 shadow-lg" onClick={createNFT}>
                     Create nft
                 </button>)}
