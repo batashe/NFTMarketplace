@@ -1,6 +1,6 @@
 # NFT Marketplace
 
-We are a developing NFT Marketplace based on Next.js, Sanity, ethereum and Node.js dedicated to connecting artists with their fans and unique token collectors!, Pay for any NFT art with Etherum.
+We are a developing NFT Marketplace based on Next.js, ethereum and Node.js dedicated to connecting artists with their fans and unique token collectors!, Pay for any NFT art with Etherum.
 
 [![Maintainer](https://img.shields.io/badge/maintainer-batashe-green)](https://github.com/batashe)
 
